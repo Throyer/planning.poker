@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { darken } from 'polished';
 
 interface Flipable {
   fliped?: boolean;
@@ -19,18 +20,17 @@ const card = css`
 `;
 
 export const Container = styled.div`
-  width: 110px;
-  height: 140px;
+  width: 12vh;
+  height: 16vh;
 
   perspective: 1000px;
   background: transparent;
-
-  cursor: pointer;
 `;
 
 export const CardContainer = styled.div<Flipable>`
   width: 100%;
   height: 100%;
+
   transition: transform 0.8s;
   transform-style: preserve-3d;
 
@@ -71,6 +71,14 @@ export const Value = styled.span`
 
 export const CardFront = styled.div`
   ${card}
+
+  transition: transform 0.1s;
+  cursor: pointer;
+
+  :hover {
+    transform: rotateY(30deg);
+    background: ${darken(0.1, '#424242')};
+  }
 
   background: #424242;
   color: #fff;

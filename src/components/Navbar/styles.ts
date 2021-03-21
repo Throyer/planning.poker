@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.header`
   display: flex;
@@ -31,9 +32,16 @@ export const Container = styled.header`
     svg {
       font-size: 16px;
     }
+
+    transition: background 0.5s, color 0.5s;
+
+    :hover {
+      background: ${darken(0.2, '#f6f6f6')};
+      color: ${darken(0.2, '#b8b9bf')};
+    }
   }
 
-  @media (max-width: 785px) {
+  @media (max-width: 910px) {
     margin-top: 0.5rem;
   }
 `;
