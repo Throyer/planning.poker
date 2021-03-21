@@ -2,11 +2,17 @@ import { Container, Players, Me } from './styles';
 
 import { Player } from '../Player';
 
-const players = ['Lucas', 'christianmsousa', 'thiagosanrocha'];
+const players = [
+  'christianmsousa',
+  'thiagosanrocha',
+  'manoeldev',
+  'thelokys',
+  'renatohenriqueps',
+];
 
 export const Sidebar = () => (
   <Container>
-    <Players className="fela">
+    <Players>
       {players.map(name => (
         <Player
           key={name}

@@ -7,6 +7,9 @@ export const Container = styled.div`
 
   justify-content: space-between;
   flex-direction: column;
+
+  border-right: 1px solid #f1f1f1;
+  padding-right: 0.5rem;
 `;
 
 export const Players = styled(Scrollbars)`
