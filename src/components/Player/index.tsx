@@ -1,4 +1,5 @@
 import { FiMoreVertical } from 'react-icons/fi';
+import { RiVipCrownFill } from 'react-icons/ri';
 
 import {
   Avatar,
@@ -7,24 +8,36 @@ import {
   PlayerContent,
   Name,
   OptionsButton,
+  Crown,
 } from './styles';
 
 interface PlayerProps {
   name: string;
   info?: string;
+  showOptions?: boolean;
+  isHost?: boolean;
 }
 
-export const Player = ({ name, info }: PlayerProps) => (
+export const Player = ({ name, info, showOptions, isHost }: PlayerProps) => (
   <Container>
     <PlayerContent>
-      <Avatar src={`https://github.com/${name}.png`} alt="player avatar" />
+      <Avatar>
+        <img src={`https://github.com/${name}.png`} alt="player avatar" />
+        {isHost && (
+          <Crown title="Host">
+            <RiVipCrownFill title="host" />
+          </Crown>
+        )}
+      </Avatar>
       <div>
         <Name>{name}</Name>
         {info && <Info>{info}</Info>}
       </div>
     </PlayerContent>
-    <OptionsButton type="button">
-      <FiMoreVertical />
-    </OptionsButton>
+    {showOptions && (
+      <OptionsButton type="button">
+        <FiMoreVertical />
+      </OptionsButton>
+    )}
   </Container>
 );

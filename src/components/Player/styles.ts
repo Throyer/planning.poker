@@ -5,7 +5,7 @@ export const Container = styled.div`
   border-radius: 8px;
 
   width: 100%;
-  height: 80px;
+  height: 50px;
 
   display: flex;
   justify-content: space-between;
@@ -17,11 +17,19 @@ export const Container = styled.div`
   }
 `;
 
-export const Avatar = styled.img`
-  width: 40px;
+export const Avatar = styled.span`
+  position: relative;
+  margin-left: 9px;
+  width: 35px;
 
-  margin-left: 17px;
-  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 40px;
+    border-radius: 50%;
+  }
 `;
 
 export const PlayerContent = styled.div`
@@ -31,11 +39,6 @@ export const PlayerContent = styled.div`
   div {
     margin-left: 16px;
     flex: 1;
-  }
-
-  svg {
-    margin-left: auto;
-    color: #cbcbd6;
   }
 `;
 
@@ -58,10 +61,33 @@ export const OptionsButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  height: 60px;
+  height: 20px;
   color: #a8a8b3;
   background: #fafafa;
   border: none;
   border-left: 1px solid #efefef;
   padding: 8px;
+`;
+
+export const Crown = styled.span`
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+  background: #424242;
+
+  right: -6px;
+  bottom: -3px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    font-size: 12px;
+    color: #ffd700;
+  }
 `;
