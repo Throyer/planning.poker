@@ -13,7 +13,7 @@ export const Container = styled.div`
   background: #fff;
   border-radius: 0.3rem;
 
-  @media (max-width: 785px) {
+  @media (max-width: 910px) {
     grid-template-columns: 1fr;
     grid-template-rows: 300px 1fr;
   }

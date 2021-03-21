@@ -19,7 +19,7 @@ export const Container = styled.header`
     align-items: center;
 
     padding: 0 20px;
-    height: 45px;
+    height: 50px;
 
     border: none;
 

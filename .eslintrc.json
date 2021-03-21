@@ -25,6 +25,9 @@
   ],
   "rules": {
     "arrow-parens": "off",
+    "operator-linebreak": "off",
+    "no-unused-expressions": "off",
+    "implicit-arrow-linebreak": "off",
     "object-curly-newline": "off",
     "react/no-unused-prop-types": "off",
     "react/require-default-props": "off",
