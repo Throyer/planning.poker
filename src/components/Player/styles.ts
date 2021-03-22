@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   background: #fafafa;
@@ -89,5 +90,41 @@ export const Crown = styled.span`
   svg {
     font-size: 12px;
     color: #ffd700;
+  }
+`;
+
+export const Options = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0.1rem;
+
+  padding: 0.5rem;
+
+  button {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+
+    border-radius: 4px 0 0 4px;
+
+    background: #fff;
+    color: #b8b9bf;
+
+    & + button {
+      border-radius: 0 4px 4px 0;
+    }
+
+    transition: background 0.5s, color 0.5s;
+
+    :hover {
+      background: ${darken(0.2, '#f6f6f6')};
+      color: #fff;
+    }
   }
 `;
