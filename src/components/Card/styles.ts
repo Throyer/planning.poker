@@ -5,6 +5,57 @@ interface Flipable {
   fliped?: boolean;
 }
 
+export type Size = 'sm' | 'md' | 'lg';
+
+interface Sizable {
+  size: Size;
+}
+
+const sizes = {
+  sm: {
+    box: css`
+      width: 38px;
+      height: 50px;
+    `,
+    font: {
+      main: css`
+        font-size: 20px;
+      `,
+      info: css`
+        font-size: 7px;
+      `,
+    },
+  },
+  md: {
+    box: css`
+      width: 68px;
+      height: 98px;
+    `,
+    font: {
+      main: css`
+        font-size: 33px;
+      `,
+      info: css`
+        font-size: 16px;
+      `,
+    },
+  },
+  lg: {
+    box: css`
+      width: 98px;
+      height: 148px;
+    `,
+    font: {
+      main: css`
+        font-size: 58px;
+      `,
+      info: css`
+        font-size: 20px;
+      `,
+    },
+  },
+};
+
 const card = css`
   position: absolute;
   width: 100%;
@@ -19,9 +70,8 @@ const card = css`
   color: #424242;
 `;
 
-export const Container = styled.div`
-  width: 12vh;
-  height: 16vh;
+export const Container = styled.div<Sizable>`
+  ${({ size }) => sizes[size].box}
 
   perspective: 1000px;
   background: transparent;
@@ -41,7 +91,7 @@ export const CardContainer = styled.div<Flipable>`
     `}
 `;
 
-export const LTValue = styled.span`
+export const LeftTopValue = styled.span<Sizable>`
   position: absolute;
   top: 5px;
   left: 5px;
@@ -49,9 +99,10 @@ export const LTValue = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ size }) => sizes[size].font.info}
 `;
 
-export const BRValue = styled.span`
+export const BottonRightValue = styled.span<Sizable>`
   position: absolute;
   bottom: 5px;
   right: 5px;
@@ -59,14 +110,15 @@ export const BRValue = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ size }) => sizes[size].font.info}
 `;
 
-export const Value = styled.span`
+export const Value = styled.span<Sizable>`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  font-size: 45px;
+  ${({ size }) => sizes[size].font.main}
 `;
 
 export const CardFront = styled.div`

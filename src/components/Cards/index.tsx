@@ -1,8 +1,7 @@
 import { ReactNode, useState } from 'react';
-import { BiCoffee } from 'react-icons/bi';
-import { CgInfinity } from 'react-icons/cg';
 
 import { Card } from '../Card';
+import { cards } from '../../utils/cards';
 
 import { Container, Content } from './styles';
 
@@ -11,33 +10,18 @@ interface CardsProps {
 }
 
 export const Cards = ({ onSelect }: CardsProps) => {
-  const [cards] = useState<ReactNode[]>([
-    '0',
-    '1/2',
-    '1',
-    '2',
-    '3',
-    '5',
-    '8',
-    '13',
-    '20',
-    '40',
-    '?',
-    <CgInfinity />,
-    <BiCoffee />,
-  ]);
-
-  const [selectedIndex, setSelectedIndex] = useState<number>();
+  const [selectedId, setSelectedId] = useState<string>();
 
   return (
     <Container>
       <Content>
-        {cards.map((value, index) => (
+        {cards.map(({ id, value }) => (
           <Card
-            key={index.toString()}
-            fliped={selectedIndex === index}
+            size="lg"
+            key={id}
+            fliped={selectedId === id}
             onClick={() => {
-              setSelectedIndex(index);
+              setSelectedId(id);
               onSelect && onSelect(value);
             }}
             value={value}
