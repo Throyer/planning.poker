@@ -9,7 +9,11 @@ export const Results = () => (
     <ResultGroup>
       <Players>
         {player.map(name => (
-          <img src={`https://github.com/${name}.png`} alt="player avatar" />
+          <img
+            key={name}
+            src={`https://github.com/${name}.png`}
+            alt="player avatar"
+          />
         ))}
       </Players>
       <ResultCard>

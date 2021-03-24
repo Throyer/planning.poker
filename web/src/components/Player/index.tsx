@@ -16,6 +16,7 @@ import {
 
 interface PlayerProps {
   name: string;
+  avatar?: string;
   info?: string;
   showOptions?: boolean;
   isHost?: boolean;
@@ -25,6 +26,7 @@ interface PlayerProps {
 
 export const Player = ({
   name,
+  avatar,
   info,
   isHost,
   showOptions: showOptionsButton,
@@ -72,7 +74,7 @@ export const Player = ({
       ) : (
         <PlayerContent>
           <Avatar>
-            <img src={`https://github.com/${name}.png`} alt="player avatar" />
+            <img src={avatar} alt="player avatar" />
             {isHost && (
               <Crown title="Host">
                 <RiVipCrownFill title="host" />
