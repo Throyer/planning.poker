@@ -82,8 +82,15 @@ export const Player = ({
             )}
           </Avatar>
           <div>
-            <Name>{name}</Name>
-            {info && <Info>{info}</Info>}
+            <Name title={name}>
+              {name.trim().length > 20 ? `${name.slice(0, 23)}...` : name}
+            </Name>
+
+            {info && (
+              <Info>
+                {info.trim().length > 39 ? `${info.slice(0, 39)}...` : info}
+              </Info>
+            )}
           </div>
         </PlayerContent>
       )}

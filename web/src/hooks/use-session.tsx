@@ -10,6 +10,7 @@ import { io, Socket } from 'socket.io-client';
 export interface Player {
   id: string;
   name: string;
+  bio?: string;
   avatar: string;
   isHost: boolean;
 }
@@ -30,7 +31,7 @@ interface SessionProviderProps {
 }
 
 export const SessionProvider = ({
-  player: { name, avatar },
+  player: { name, avatar, bio },
   children,
 }: SessionProviderProps): JSX.Element => {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -53,6 +54,7 @@ export const SessionProvider = ({
     socket.emit('join', {
       name,
       avatar,
+      bio,
     });
 
     return socket;

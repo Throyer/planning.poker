@@ -13,19 +13,14 @@ export const Sidebar = ({ players, me }: SidebarProps) => {
   return (
     <Container>
       <Players>
-        {/* {players.map(player => (
-          <pre key={player.id} style={{ fontSize: '8px' }}>
-            {JSON.stringify(player, null, 4)}
-          </pre>
-        ))} */}
-        {players.map(({ name, avatar, isHost, id }) => (
+        {players.map(({ name, avatar, isHost, id, bio }) => (
           <Player
             key={id}
             name={name}
             avatar={avatar}
             isHost={isHost}
             showOptions={me?.isHost}
-            info="Mesma info pra todos esses putos"
+            info={bio}
             onKick={() => kick(id)}
           />
         ))}
@@ -35,7 +30,7 @@ export const Sidebar = ({ players, me }: SidebarProps) => {
           <Player
             name={me.name}
             avatar={me.avatar}
-            info="Mesma info pra todos esses putos"
+            info={me.bio}
             isHost={me.isHost}
           />
         </Me>
