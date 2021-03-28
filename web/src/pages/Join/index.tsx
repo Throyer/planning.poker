@@ -35,9 +35,6 @@ export const Join = () => {
       }
       if (email) {
         const result = await gravatarUrl(email);
-        if (url) {
-          githubBio = '';
-        }
 
         if (result) {
           url = result;

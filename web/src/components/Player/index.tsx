@@ -88,7 +88,7 @@ export const Player = ({
 
             {info && (
               <Info>
-                {info.trim().length > 39 ? `${info.slice(0, 39)}...` : info}
+                {info.trim().length > 39 ? `${info.slice(0, 38)}...` : info}
               </Info>
             )}
           </div>

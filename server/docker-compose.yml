@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  node-crud:
+    build: ./
+    restart: always
+    container_name: planning_poker
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
