@@ -30,6 +30,8 @@
         "ts": "never"
       }
     ],
+    "import/prefer-default-export": "off",
+    "no-console": "off",
     "@typescript-eslint/no-var-requires": "off",
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
