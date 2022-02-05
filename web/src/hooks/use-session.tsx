@@ -1,11 +1,11 @@
 import {
   createContext,
-  useState,
   ReactNode,
   useContext,
   useEffect,
+  useState,
 } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { useSocket } from './use-socket';
 
 export interface Player {
   id: string;
@@ -34,65 +34,44 @@ export const SessionProvider = ({
   player: { name, avatar, bio },
   children,
 }: SessionProviderProps): JSX.Element => {
-  const [players, setPlayers] = useState<Player[]>([]);
+  const { socket } = useSocket();
 
   const [player, setPlayer] = useState<Player>({
-    name: 'unknown',
-    avatar: 'unknown',
-    id: '0',
+    id: '',
+    name: '',
+    avatar: '',
     isHost: false,
   });
 
-  const [socket] = useState<Socket>(() => {
-    const socket = io('http://localhost:8080/');
-
-    socket.on('all', all => {
-      console.count('all');
-      setPlayers(all);
-    });
-
-    socket.emit('join', {
-      name,
-      avatar,
-      bio,
-    });
-
-    return socket;
-  });
-
-  const kick = (playerId: string) => {
-    socket.emit('kick', playerId);
-  };
+  const [players, setPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
-    if (socket) {
-      socket.on('new', join => {
-        console.count('new');
-        setPlayers(state => [...state, join]);
-      });
-
-      socket.on('leave', leaveId => {
-        console.count('leave');
-        setPlayers(state => state.filter(({ id }) => id !== leaveId));
-      });
-
-      socket.on('kicked', kickedId => {
-        console.count('kicked');
-        if (player.id === kickedId) {
-          alert('Você foi kickado');
+    socket.on('players', players => {
+      console.log(players);
+      setPlayers(players);
+    });
+    socket.on('player', setPlayer);
+    socket.on('new', player => setPlayers(old => [...old, player]));
+    socket.on('leave', id =>
+      setPlayers(oldPlayers => {
+        const newStatePlayers = oldPlayers.filter(player => player.id !== id);
+        if (newStatePlayers.length === 0) {
+          setPlayer(oldPlayer => ({
+            ...oldPlayer,
+            isHost: true,
+          }));
         }
-        setPlayers(state => state.filter(({ id }) => id !== kickedId));
-      });
+        return newStatePlayers;
+      }),
+    );
 
-      socket.on('player', me => {
-        console.count('player');
-        setPlayer(me);
-      });
-    }
-  }, [socket, player.id]);
+    socket?.emit('join', { name, avatar, bio });
+  }, [avatar, bio, name, socket]);
 
   return (
-    <SessionContext.Provider value={{ players, player, kick }}>
+    <SessionContext.Provider
+      value={{ players, player, kick: () => console.log('oi') }}
+    >
       {children}
     </SessionContext.Provider>
   );

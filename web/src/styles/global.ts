@@ -18,8 +18,8 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     #root {
-      height: 100vh;
-      width: 100vw;
+      min-height: 100vh;
+      min-width: 100vw;
       display: flex;
       justify-content: center;
       align-items: center;

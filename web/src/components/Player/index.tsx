@@ -24,6 +24,9 @@ interface PlayerProps {
   onPromote?: () => void;
 }
 
+const MAX_NAME_SIZE = 25;
+const MAX_INFO_SIZE = 34;
+
 export const Player = ({
   name,
   avatar,
@@ -83,12 +86,16 @@ export const Player = ({
           </Avatar>
           <div>
             <Name title={name}>
-              {name.trim().length > 20 ? `${name.slice(0, 23)}...` : name}
+              {name.trim().length > MAX_NAME_SIZE
+                ? `${name.slice(0, MAX_NAME_SIZE)}...`
+                : name}
             </Name>
 
             {info && (
               <Info>
-                {info.trim().length > 39 ? `${info.slice(0, 38)}...` : info}
+                {info.trim().length > MAX_INFO_SIZE
+                  ? `${info.slice(0, MAX_INFO_SIZE)}...`
+                  : info}
               </Info>
             )}
           </div>
