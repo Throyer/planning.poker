@@ -14,7 +14,7 @@ export const Home = () => {
           <BsBoxArrowInRight />
           <span>Join</span>
         </Button>
-        <Button type="button">
+        <Button type="button" onClick={() => history.push('/create')}>
           <FaCertificate />
           <span>Create</span>
         </Button>

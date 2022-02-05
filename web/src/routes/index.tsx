@@ -7,7 +7,10 @@ import { Session } from '../pages/Session';
 export const Routes = () => (
   <Switch>
     <Route path="/" exact component={Home} />
+    <Route path="/join/:id" component={Join} />
     <Route path="/join" component={Join} />
+    <Route path="/create" component={Join} />
+    <Route path="/session/:id" component={Join} />
     <Route path="/session" component={Session} />
   </Switch>
 );

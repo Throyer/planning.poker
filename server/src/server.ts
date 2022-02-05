@@ -23,10 +23,10 @@ app.use(express.json());
 
 app.get('/', home);
 
-let players = [];
+const rooms = new Map<string, Array<any>>();
 
 const host = (playersState: any[]) => {
-  if (playersState.length === 1) {
+  if (playersState?.length === 1) {
     const [player] = playersState;
     return [
       {
@@ -39,30 +39,57 @@ const host = (playersState: any[]) => {
 };
 
 io.on('connection', socket => {
-  socket.on('join', data => {
-    socket.emit('players', players);
+  let sessionId = null;
+
+  socket.on('join', ({ sessionId: id, player: data }) => {
+    sessionId = id;
+
+    socket.join(sessionId);
+
+    console.log(sessionId);
+
+    if (!rooms.get(sessionId)) {
+      rooms.set(sessionId, []);
+    }
+
+    const players = rooms.get(sessionId);
+
     const player = {
       ...data,
       id: socket.id,
       isHost: players.length === 0,
+      sessionId,
     };
+
+    socket.emit('players', players);
 
     players.push(player);
 
     socket.emit('player', player);
 
-    socket.broadcast.emit('new', player);
+    socket.broadcast.in(sessionId).emit('new', player);
+
+    rooms.set(sessionId, players);
   });
 
   socket.on('disconnect', () => {
-    players = host(players.filter(player => player.id !== socket.id));
-    socket.broadcast.emit('leave', socket.id);
+    rooms.set(
+      sessionId,
+      host(
+        rooms.get(sessionId)?.filter(player => player.id !== socket.id) || [],
+      ),
+    );
+    socket.broadcast.in(sessionId).emit('leave', socket.id);
   });
 
   socket.on('kick', playerId => {
-    players = players.filter(player => player.id !== playerId);
-    socket.broadcast.emit('kicked', playerId);
-    console.count('kicked');
+    rooms.set(
+      sessionId,
+      host(
+        rooms.get(sessionId)?.filter(player => player.id !== playerId) || [],
+      ),
+    );
+    socket.broadcast.in(sessionId).emit('kicked', playerId);
   });
 });
 

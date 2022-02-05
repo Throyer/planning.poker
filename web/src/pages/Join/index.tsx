@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams, useRouteMatch } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
+import { customAlphabet } from 'nanoid';
 
 import { gravatarUrl, github } from '../../utils/avatar-utils';
 
@@ -17,6 +18,11 @@ import {
 export const Join = () => {
   const history = useHistory();
 
+  const isCreateRoute = useRouteMatch({ path: '/create' });
+
+  const { id: queryId } = useParams<{ id: string }>();
+
+  const [sessionId, setSessionId] = useState<string | undefined>(queryId);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
@@ -66,13 +72,33 @@ export const Join = () => {
       <Form
         onSubmit={event => {
           event.preventDefault();
-          history.push('session', {
+
+          const params = {
             username,
             avatar: avatarUrl,
             bio,
-          });
+            sessionId,
+          };
+
+          if (isCreateRoute) {
+            const alphabet =
+              '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            const nanoid = customAlphabet(alphabet, 11);
+            params.sessionId = nanoid();
+          }
+
+          history.push('session', params);
         }}
       >
+        {!isCreateRoute && (
+          <input
+            type="text"
+            name="session_id"
+            value={sessionId}
+            placeholder="Session id"
+            onChange={({ target: { value } }) => setSessionId(value)}
+          />
+        )}
         <input
           type="text"
           name="username"
@@ -96,7 +122,7 @@ export const Join = () => {
             Back
           </Button>
           <Button className="right" disabled={!avatarUrl} type="submit">
-            join
+            {isCreateRoute ? 'create' : 'join'}
           </Button>
         </ButtonContainer>
       </Form>

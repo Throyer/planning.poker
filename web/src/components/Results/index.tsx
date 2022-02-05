@@ -2,7 +2,13 @@ import { Card } from '../Card';
 
 import { Container, ResultGroup, ResultCard, Players } from './styles';
 
-const player = ['christianmsousa', 'thiagosanrocha', 'manoeldev', 'thelokys'];
+const player = [
+  'christianmsousa',
+  'thiagosanrocha',
+  'manoeldev',
+  'thelokys',
+  'throyer',
+];
 
 export const Results = () => (
   <Container>

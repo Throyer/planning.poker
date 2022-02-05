@@ -10,6 +10,7 @@ import { useSession } from '../../hooks/use-session';
 
 export const Game = () => {
   const { players, player } = useSession();
+
   return (
     <Container>
       <Sidebar players={players} me={player} />
@@ -20,7 +21,7 @@ export const Game = () => {
       </Main>
       {/* <Debug
         style={{ marginTop: 60, fontSize: 'xx-small' }}
-        data={{ players, player }}
+        data={{ players, player, id }}
       /> */}
     </Container>
   );

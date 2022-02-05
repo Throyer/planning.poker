@@ -16,6 +16,7 @@ export interface Player {
 }
 
 interface SessionContextData {
+  id: string;
   player: Player;
   players: Player[];
   kick: (playerId: string) => void;
@@ -26,11 +27,13 @@ const SessionContext = createContext<SessionContextData>(
 );
 
 interface SessionProviderProps {
+  sessionId: string;
   player: Omit<Player, 'id' | 'isHost'>;
   children: ReactNode;
 }
 
 export const SessionProvider = ({
+  sessionId,
   player: { name, avatar, bio },
   children,
 }: SessionProviderProps): JSX.Element => {
@@ -65,12 +68,12 @@ export const SessionProvider = ({
       }),
     );
 
-    socket?.emit('join', { name, avatar, bio });
-  }, [avatar, bio, name, socket]);
+    socket?.emit('join', { sessionId, player: { name, avatar, bio } });
+  }, [avatar, bio, name, socket, sessionId]);
 
   return (
     <SessionContext.Provider
-      value={{ players, player, kick: () => console.log('oi') }}
+      value={{ id: sessionId, players, player, kick: () => console.log('oi') }}
     >
       {children}
     </SessionContext.Provider>
